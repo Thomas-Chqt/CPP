@@ -1,0 +1,6 @@
+{
+	"files.exclude": {
+		"megaphone": true,
+		"megaphone_debug": true
+	},
+}

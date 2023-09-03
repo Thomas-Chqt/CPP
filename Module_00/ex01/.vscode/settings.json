@@ -1,0 +1,9 @@
+{
+	"files.exclude": {
+		"phoneBook": true,
+		"phoneBook_debug": true
+	},
+	"C_Cpp.default.includePath": [
+		"includes"
+	]
+}

@@ -1,0 +1,13 @@
+{
+	"files.exclude": {
+		"ex00/megaphone": true,
+		"ex00/megaphone_debug": true,
+		"ex01/phoneBook": true,
+		"ex01/phoneBook_debug": true,
+		"ex02/account": true,
+		"ex02/account_debug": true
+	},
+	"C_Cpp.default.includePath": [
+		"ex01/includes"
+	]
+}

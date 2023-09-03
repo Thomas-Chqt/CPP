@@ -1,0 +1,6 @@
+{
+	"files.exclude": {
+		"account": true,
+		"account_debug": true
+	}
+}
