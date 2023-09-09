@@ -5,7 +5,22 @@
 		"Module_00/ex01/phoneBook": true,
 		"Module_00/ex01/phoneBook_debug": true,
 		"Module_00/ex02/account": true,
-		"Module_00/ex02/account_debug": true
+		"Module_00/ex02/account_debug": true,
+		"Module_01/ex00/brainz": true,
+		"Module_01/ex00/brainz_debug": true,
+		"Module_01/ex01/more_brainz": true,
+		"Module_01/ex01/more_brainz_debug": true,
+		"Module_01/ex02/brain": true,
+		"Module_01/ex02/brain_debug": true,
+		"Module_01/ex03/violence": true,
+		"Module_01/ex03/violence_debug": true,
+		"Module_01/ex04/sed": true,
+		"Module_01/ex04/sed_debug": true,
+		"Module_01/ex04/*.replace": true,
+		"Module_01/ex05/harl": true,
+		"Module_01/ex05/harl_debug": true,
+		"Module_01/ex06/HarlFilter": true,
+		"Module_01/ex06/HarlFilter_debug": true
 	},
 	"C_Cpp.default.includePath": [
 		"Module_00/ex01/includes"

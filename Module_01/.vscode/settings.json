@@ -1,0 +1,19 @@
+{
+	"files.exclude": {
+		"ex00/brainz": true,
+		"ex00/brainz_debug": true,
+		"ex01/more_brainz": true,
+		"ex01/more_brainz_debug": true,
+		"ex02/brain": true,
+		"ex02/brain_debug": true,
+		"ex03/violence": true,
+		"ex03/violence_debug": true,
+		"ex04/sed": true,
+		"ex04/sed_debug": true,
+		"ex04/*.replace": true,
+		"ex05/harl": true,
+		"ex05/harl_debug": true,
+		"ex06/HarlFilter": true,
+		"ex06/HarlFilter_debug": true
+	}
+}

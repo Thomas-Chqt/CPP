@@ -1,0 +1,6 @@
+{
+	"files.exclude": {
+		"violence": true,
+		"violence_debug": true
+	},
+}

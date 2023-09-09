@@ -1,0 +1,6 @@
+{
+	"files.exclude": {
+		"harl": true,
+		"harl_debug": true,
+	}
+}

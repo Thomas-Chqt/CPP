@@ -1,0 +1,6 @@
+{
+	"files.exclude": {
+		"brainz": true,
+		"brainz_debug": true
+	}
+}
