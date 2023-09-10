@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 17:52:40 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/09/05 00:01:02 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/09/10 15:04:42 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,11 @@ int main()
 		jim.setWeapon(club);
 		jim.attack();
 		club.setType("some other type of club");
+		jim.attack();
+	}
+	std::cout << std::endl;
+	{
+		HumanB jim("Trevor");
 		jim.attack();
 	}
 	return 0;

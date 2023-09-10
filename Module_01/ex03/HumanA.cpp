@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 23:25:34 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/09/05 00:06:23 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/09/10 15:03:11 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,11 @@ HumanA::HumanA(const std::string& name, Weapon* weapon)
 
 void HumanA::attack() const
 {
-	std::cout << name << " attacks with their " << weapon->getType() << std::endl;
+	if (weapon != NULL)
+		std::cout << name << " attacks with their " << weapon->getType() << std::endl;
+	else
+		std::cout << name << " Has no weapon" << std::endl;
+		
 }
 
 void HumanA::setWeapon(Weapon& weapon)

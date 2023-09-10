@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 14:20:11 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/09/08 16:15:57 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/09/10 15:08:48 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ static void destructor(void)
 
 int main(int argc, char const *argv[])
 {
-	if (argc < 4)
+	if (argc < 4 || argv[2][0] == '\0')
 	{
-		std::cout << "sed: missing argument" << std::endl;
+		std::cout << "sed: wrong argument" << std::endl;
 		return 1;
 	}
 
