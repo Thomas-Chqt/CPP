@@ -1,0 +1,12 @@
+{
+	"files.exclude": {
+		"ex00/myFirstClass": true,
+		"ex00/myFirstClass_debug": true,
+		"ex01/moreUseful": true,
+		"ex01/moreUseful_debug": true,
+		"ex02/talking": true,
+		"ex02/talking_debug": true,
+		"ex03/bsp": true,
+		"ex03/bsp_debug": true
+	}
+}

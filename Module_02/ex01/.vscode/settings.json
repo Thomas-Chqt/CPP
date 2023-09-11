@@ -1,0 +1,6 @@
+{
+	"files.exclude": {
+		"moreUseful": true,
+		"moreUseful_debug": true
+	}
+}

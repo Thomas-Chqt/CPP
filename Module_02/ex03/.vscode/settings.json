@@ -1,0 +1,6 @@
+{
+	"files.exclude": {
+		"bsp": true,
+		"bsp_debug": true
+	}
+}

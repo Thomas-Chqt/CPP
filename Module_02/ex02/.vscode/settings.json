@@ -1,0 +1,6 @@
+{
+	"files.exclude": {
+		"talking": true,
+		"talking_debug": true
+	}
+}

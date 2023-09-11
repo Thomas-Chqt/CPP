@@ -1,0 +1,6 @@
+{
+	"files.exclude": {
+		"myFirstClass": true,
+		"myFirstClass_debug": true
+	}
+}

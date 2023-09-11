@@ -20,7 +20,15 @@
 		"Module_01/ex05/harl": true,
 		"Module_01/ex05/harl_debug": true,
 		"Module_01/ex06/HarlFilter": true,
-		"Module_01/ex06/HarlFilter_debug": true
+		"Module_01/ex06/HarlFilter_debug": true,
+		"Module_02/ex00/myFirstClass": true,
+		"Module_02/ex00/myFirstClass_debug": true,
+		"Module_02/ex01/moreUseful": true,
+		"Module_02/ex01/moreUseful_debug": true,
+		"Module_02/ex02/talking": true,
+		"Module_02/ex02/talking_debug": true,
+		"Module_02/ex03/bsp": true,
+		"Module_02/ex03/bsp_debug": true
 	},
 	"C_Cpp.default.includePath": [
 		"Module_00/ex01/includes"
