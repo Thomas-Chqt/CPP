@@ -1,0 +1,12 @@
+{
+	"files.exclude": {
+		"ex00/aaaaand": true,
+		"ex00/aaaaand_debug": true,
+		"ex01/serena": true,
+		"ex01/serena_debug": true,
+		"ex02/repetitive": true,
+		"ex02/repetitive_debug": true,
+		"ex03/weird": true,
+		"ex03/weird_debug": true
+	}
+}

@@ -1,0 +1,6 @@
+{
+	"files.exclude": {
+		"weird": true,
+		"weird_debug": true
+	}
+}

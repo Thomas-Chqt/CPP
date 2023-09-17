@@ -1,0 +1,6 @@
+{
+	"files.exclude": {
+		"repetitive": true,
+		"repetitive_debug": true
+	}
+}

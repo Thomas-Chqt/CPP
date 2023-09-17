@@ -28,7 +28,15 @@
 		"Module_02/ex02/talking": true,
 		"Module_02/ex02/talking_debug": true,
 		"Module_02/ex03/bsp": true,
-		"Module_02/ex03/bsp_debug": true
+		"Module_02/ex03/bsp_debug": true,
+		"Module_03/ex00/aaaaand": true,
+		"Module_03/ex00/aaaaand_debug": true,
+		"Module_03/ex01/serena": true,
+		"Module_03/ex01/serena_debug": true,
+		"Module_03/ex02/repetitive": true,
+		"Module_03/ex02/repetitive_debug": true,
+		"Module_03/ex03/weird": true,
+		"Module_03/ex03/weird_debug": true
 	},
 	"C_Cpp.default.includePath": [
 		"Module_00/ex01/includes"

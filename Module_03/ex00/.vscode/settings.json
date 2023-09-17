@@ -1,0 +1,6 @@
+{
+	"files.exclude": {
+		"aaaaand": true,
+		"aaaaand_debug": true
+	}
+}
