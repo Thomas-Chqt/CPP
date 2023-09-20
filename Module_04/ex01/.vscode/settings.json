@@ -1,0 +1,6 @@
+{
+	"files.exclude": {
+		"onFire": true,
+		"onFire_debug": true
+	}
+}

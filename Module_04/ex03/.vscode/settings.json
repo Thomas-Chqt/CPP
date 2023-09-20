@@ -1,0 +1,6 @@
+{
+	"files.exclude": {
+		"interface": true,
+		"interface_debug": true
+	}
+}

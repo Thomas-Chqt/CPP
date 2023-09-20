@@ -1,0 +1,6 @@
+{
+	"files.exclude": {
+		"abstract": true,
+		"abstract_debug": true
+	}
+}

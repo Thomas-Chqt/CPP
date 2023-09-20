@@ -1,0 +1,12 @@
+{
+	"files.exclude": {
+		"ex00/polymorphism": true,
+		"ex00/polymorphism_debug": true,
+		"ex01/onFire": true,
+		"ex01/onFire_debug": true,
+		"ex02/abstract": true,
+		"ex02/abstract_debug": true,
+		"ex03/interface": true,
+		"ex03/interface_debug": true
+	}
+}

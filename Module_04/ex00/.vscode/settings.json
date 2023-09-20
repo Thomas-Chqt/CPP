@@ -1,0 +1,6 @@
+{
+	"files.exclude": {
+		"polymorphism": true,
+		"polymorphism_debug": true
+	}
+}

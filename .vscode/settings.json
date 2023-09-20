@@ -36,7 +36,15 @@
 		"Module_03/ex02/repetitive": true,
 		"Module_03/ex02/repetitive_debug": true,
 		"Module_03/ex03/weird": true,
-		"Module_03/ex03/weird_debug": true
+		"Module_03/ex03/weird_debug": true,
+		"Module_04/ex00/polymorphism": true,
+		"Module_04/ex00/polymorphism_debug": true,
+		"Module_04/ex01/onFire": true,
+		"Module_04/ex01/onFire_debug": true,
+		"Module_04/ex02/abstract": true,
+		"Module_04/ex02/abstract_debug": true,
+		"Module_04/ex03/interface": true,
+		"Module_04/ex03/interface_debug": true
 	},
 	"C_Cpp.default.includePath": [
 		"Module_00/ex01/includes"
