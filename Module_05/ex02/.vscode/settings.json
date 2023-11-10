@@ -1,0 +1,6 @@
+{
+	"files.exclude": {
+		"28B-28C": true,
+		"28B-28C_debug": true
+	}
+}

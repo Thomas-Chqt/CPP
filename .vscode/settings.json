@@ -44,7 +44,15 @@
 		"Module_04/ex02/abstract": true,
 		"Module_04/ex02/abstract_debug": true,
 		"Module_04/ex03/interface": true,
-		"Module_04/ex03/interface_debug": true
+		"Module_04/ex03/interface_debug": true,
+		"Module_05/ex00/mommy": true,
+		"Module_05/ex00/mommy_debug": true,
+		"Module_05/ex01/maggots": true,
+		"Module_05/ex01/maggots_debug": true,
+		"Module_05/ex02/28B-28C": true,
+		"Module_05/ex02/28B-28C_debug": true,
+        "Module_05/ex03/coffee-making": true,
+		"Module_05/ex03/coffee-making_debug": true
 	},
 	"C_Cpp.default.includePath": [
 		"Module_00/ex01/includes"

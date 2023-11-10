@@ -1,0 +1,6 @@
+{
+	"files.exclude": {
+		"maggots": true,
+		"maggots_debug": true
+	}
+}

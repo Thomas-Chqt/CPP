@@ -1,0 +1,12 @@
+{
+	"files.exclude": {
+		"ex00/mommy": true,
+		"ex00/mommy_debug": true,
+        "ex01/maggots": true,
+        "ex01/maggots_debug": true,
+        "ex02/28B-28C": true,
+		"ex02/28B-28C_debug": true,
+        "ex03/coffee-making": true,
+        "ex03/coffee-making_debug": true
+	}
+}

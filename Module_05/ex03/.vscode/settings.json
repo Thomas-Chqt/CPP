@@ -1,0 +1,6 @@
+{
+	"files.exclude": {
+		"coffee-making": true,
+		"coffee-making_debug": true
+	}
+}

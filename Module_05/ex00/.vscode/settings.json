@@ -1,0 +1,6 @@
+{
+	"files.exclude": {
+		"mommy": true,
+		"mommy_debug": true
+	}
+}
