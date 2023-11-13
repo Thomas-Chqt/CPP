@@ -1,4 +1,6 @@
 {
-	"files.exclude": {
-	}
+    "files.exclude": {
+        "ex00/whatever": true,
+        "ex00/whatever_debug": true
+    }
 }
