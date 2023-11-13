@@ -1,0 +1,6 @@
+{
+	"files.exclude": {
+		"iter": true,
+		"iter_debug": true
+	}
+}
