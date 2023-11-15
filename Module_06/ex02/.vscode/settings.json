@@ -1,0 +1,6 @@
+{
+	"files.exclude": {
+		"real-type": true,
+		"real-type_debug": true
+	}
+}

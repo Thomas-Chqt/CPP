@@ -52,7 +52,13 @@
 		"Module_05/ex02/28B-28C": true,
 		"Module_05/ex02/28B-28C_debug": true,
         "Module_05/ex03/coffee-making": true,
-		"Module_05/ex03/coffee-making_debug": true
+		"Module_05/ex03/coffee-making_debug": true,
+        "Module_06/ex00/convert": true,
+		"Module_06/ex00/convert_debug": true,
+		"Module_06/ex01/serialization": true,
+		"Module_06/ex01/serialization_debug": true,
+		"Module_06/ex02/real-type": true,
+		"Module_06/ex02/real-type_debug": true
 	},
 	"C_Cpp.default.includePath": [
 		"Module_00/ex01/includes"

@@ -1,0 +1,6 @@
+{
+	"files.exclude": {
+		"convert": true,
+		"convert_debug": true
+	}
+}

@@ -1,0 +1,10 @@
+{
+	"files.exclude": {
+        "ex00/convert": true,
+        "ex00/convert_debug": true,
+        "ex01/serialization": true,
+        "ex01/serialization_debug": true,
+        "ex02/real-type": true,
+        "ex02/real-type_debug": true
+	}
+}
