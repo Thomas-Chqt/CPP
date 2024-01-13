@@ -58,7 +58,13 @@
 		"Module_06/ex01/serialization": true,
 		"Module_06/ex01/serialization_debug": true,
 		"Module_06/ex02/real-type": true,
-		"Module_06/ex02/real-type_debug": true
+		"Module_06/ex02/real-type_debug": true,
+        "Module_07/ex00/whatever": true,
+		"Module_07/ex00/whatever_debug": true,
+        "Module_07/ex01/iter": true,
+		"Module_07/ex01/iter_debug": true,
+		"Module_07/ex02/array": true,
+		"Module_07/ex02/array_debug": true
 	},
 	"C_Cpp.default.includePath": [
 		"Module_00/ex01/includes"

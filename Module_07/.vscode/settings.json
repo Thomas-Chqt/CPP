@@ -1,0 +1,10 @@
+{
+    "files.exclude": {
+        "ex00/whatever": true,
+        "ex00/whatever_debug": true,
+        "ex01/iter": true,
+        "ex01/iter_debug": true,
+        "ex02/array": true,
+        "ex02/array_debug": true
+    }
+}
