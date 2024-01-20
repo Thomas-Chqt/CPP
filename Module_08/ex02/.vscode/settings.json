@@ -1,0 +1,6 @@
+{
+	"files.exclude": {
+		"mutated": true,
+		"mutated_debug": true
+	}
+}

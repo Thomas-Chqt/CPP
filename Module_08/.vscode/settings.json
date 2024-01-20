@@ -1,0 +1,10 @@
+{
+    "files.exclude": {
+        "ex00/easy": true,
+        "ex00/easy_debug": true,
+        "ex01/span": true,
+        "ex01/span_debug": true,
+        "ex02/mutated": true,
+        "ex02/mutated_debug": true
+    }
+}

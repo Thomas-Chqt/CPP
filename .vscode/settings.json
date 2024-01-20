@@ -64,7 +64,13 @@
         "Module_07/ex01/iter": true,
 		"Module_07/ex01/iter_debug": true,
 		"Module_07/ex02/array": true,
-		"Module_07/ex02/array_debug": true
+		"Module_07/ex02/array_debug": true,
+		"Module_08/ex00/easy": true,
+		"Module_08/ex00/easy_debug": true,
+        "Module_08/ex01/span": true,
+        "Module_08/ex01/span_debug": true,
+        "Module_08/ex02/mutated": true,
+        "Module_08/ex02/mutated_debug": true
 	},
 	"C_Cpp.default.includePath": [
 		"Module_00/ex01/includes"

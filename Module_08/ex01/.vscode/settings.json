@@ -1,0 +1,6 @@
+{
+	"files.exclude": {
+		"span": true,
+		"span_debug": true
+	}
+}
