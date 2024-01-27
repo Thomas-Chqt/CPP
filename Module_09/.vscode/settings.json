@@ -1,4 +1,6 @@
 {
     "files.exclude": {
+        "ex00/btc" : true,
+        "ex00/btc_debug" : true
     }
 }

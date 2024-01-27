@@ -1,0 +1,6 @@
+{
+	"files.exclude": {
+        "btc" : true,
+        "btc_debug" : true
+	}
+}

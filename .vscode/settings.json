@@ -70,7 +70,9 @@
         "Module_08/ex01/span": true,
         "Module_08/ex01/span_debug": true,
         "Module_08/ex02/mutated": true,
-        "Module_08/ex02/mutated_debug": true
+        "Module_08/ex02/mutated_debug": true,
+        "Module_09/ex00/btc" : true,
+        "Module_09/ex00/btc_debug" : true
 	},
 	"C_Cpp.default.includePath": [
 		"Module_00/ex01/includes"
