@@ -1,4 +1,6 @@
 {
     "files.exclude": {
+        "ex01/RPN": true,
+        "ex01/RPN_debug": true
     }
 }
