@@ -6,7 +6,7 @@
 #    By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/29 12:15:17 by tchoquet          #+#    #+#              #
-#    Updated: 2024/02/07 18:29:22 by tchoquet         ###   ########.fr        #
+#    Updated: 2024/02/07 19:08:38 by tchoquet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ TARGET_TYPE	= release
 
 BUILD_DIR = .build
 
-    SRC = main.cpp BitcoinExchange.cpp
+    SRC = main.cpp RPN.cpp
     OBJ = ${foreach file, ${SRC:.cpp=.o}, ${BUILD_DIR}/${notdir ${file}}}
 ifeq (${TARGET_TYPE}, debug)
     OBJ := ${OBJ:.o=_debug.o}
