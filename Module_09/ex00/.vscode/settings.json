@@ -2,5 +2,8 @@
 	"files.exclude": {
         "btc" : true,
         "btc_debug" : true
-	}
+    },
+    "cSpell.words": [
+        "BITCOINEXCHANGE"
+    ]
 }
