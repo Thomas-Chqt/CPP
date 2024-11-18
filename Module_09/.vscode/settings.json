@@ -1,6 +1,8 @@
 {
     "files.exclude": {
         "ex00/btc" : true,
-        "ex00/btc_debug" : true
+        "ex00/btc_debug" : true,
+        "ex01/RPN": true,
+        "ex01/RPN_debug": true
     }
 }

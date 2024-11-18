@@ -1,0 +1,6 @@
+{
+	"files.exclude": {
+        "RPN" : true,
+        "RPN_debug" : true
+    }
+}
