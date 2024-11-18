@@ -1,0 +1,6 @@
+{
+	"files.exclude": {
+        "PmergeMe" : true,
+        "PmergeMe_debug" : true
+    }
+}

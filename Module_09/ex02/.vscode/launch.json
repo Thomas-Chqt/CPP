@@ -1,0 +1,48 @@
+{
+	// Use IntelliSense to learn about possible attributes.
+	// Hover to view descriptions of existing attributes.
+	// For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"name": "Debug",
+			"request": "launch",
+			"type": "lldb",
+			"program": "${workspaceFolder}/PmergeMe_debug",
+            "args": [
+                "87",
+                "84",
+                "60",
+                "90",
+                "37",
+                "41",
+                "88",
+                "49",
+                "43",
+                "21",
+                "81",
+                "57",
+                "52",
+                "3" ,
+                "74",
+                "74",
+                "35",
+                "49",
+                "91",
+                "96",
+                "41",
+                "30",
+                "80",
+                "58",
+                "60",
+                "33",
+                "4" ,
+                "7" ,
+                "30",
+                "93"
+            ],
+            "cwd": "${workspaceFolder}",
+			"preLaunchTask": "Build Debug"
+		}
+	]
+}
