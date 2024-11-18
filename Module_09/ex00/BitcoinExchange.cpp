@@ -41,7 +41,25 @@ BitcoinExchange::error::error(const std::string& filepath, uint32 line, const st
 
 bool BitcoinExchange::Date::isValid() const
 {
-    return year > 0 && month > 0 && month <= 12 && day > 0 && day <= 31;
+    if (year <= 0 || month <= 0 || month > 12 || day <= 0)
+        return false;
+
+    static const uint32 daysInMonth[] = {
+        31, 28, 31, 30,
+        31, 30, 31, 31,
+        30, 31, 30, 31
+    };
+
+    uint32 maxDays = daysInMonth[month - 1];
+
+    // Check for leap year
+    if (month == 2 && year % 4 == 0)
+    {
+        if (year % 100 != 0 || (year % 100 == 0 && year % 400 == 0))
+            maxDays = 29;   
+    }
+
+    return day <= maxDays;
 }
 
 BitcoinExchange::Date::operator uint32 ()
