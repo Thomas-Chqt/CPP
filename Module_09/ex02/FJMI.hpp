@@ -3,71 +3,39 @@
 /*                                                        :::      ::::::::   */
 /*   FJMI.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: tchoquet <tchoquet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 12:24:42 by tchoquet          #+#    #+#             */
-/*   Updated: 2024/05/01 18:55:28 by tchoquet         ###   ########.fr       */
+/*   Updated: 2024/11/29 18:42:06 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FJMI_HPP
 # define FJMI_HPP
 
-#include <vector>
-#include <list>
+#include <iterator>
+#include <algorithm>
+
+#include "IteratorGroup.hpp"
 
 typedef unsigned int uint32;
 
-template<typename Iterator>
-Iterator operator + (const Iterator& it, const uint32& n)
+inline uint32 jacob(uint32 n)
 {
-    Iterator ret = it;
-    for (uint32 i = 0; i < n; i++)
-        ++ret;
-    return ret;
-}
-
-template<typename Iterator>
-Iterator& operator += (Iterator& it, const uint32& n)
-{
-    for (uint32 i = 0; i < n; i++)
-        ++it;
-    return it;
-}
-
-template<typename Iterator>
-Iterator operator - (const Iterator& it, const uint32& n)
-{
-    Iterator ret = it;
-    for (uint32 i = 0; i < n; i++)
-        --ret;
-    return ret;
-}
-
-template<typename Iterator>
-Iterator& operator -= (Iterator& it, const uint32& n)
-{
-    for (uint32 i = 0; i < n; i++)
-        --it;
-    return it;
-}
-
-template<typename Iterator>
-void swap_iterator_range(Iterator headA, Iterator headB, uint32 rangeLen)
-{
-    Iterator currA = headA;
-    Iterator currB = headB;
-    for (uint32 i = 0; i < rangeLen; ++currA, ++currB, i++)
-        std::iter_swap(currA, currB);
+    if (n == 1)
+        return 0;
+    if (n == 2)
+        return 1;
+    return jacob(n - 1) + 2 * jacob(n - 2);
 }
 
 template<typename Container>
 void binaryInsert(Container& container, const typename Container::iterator begin, const typename Container::iterator end, uint32 elementSize, const typename Container::iterator element)
-{
+{        
     typename Container::size_type size = std::distance(begin, end) / elementSize;
-    if (size == 1)
+    if (size <= 1)
     {
-        if (*element <= *begin)
+        if (size == 0 || *element <= *begin)
             container.insert(begin, element, element + elementSize);
         else
             container.insert(end, element, element + elementSize);
@@ -80,21 +48,38 @@ void binaryInsert(Container& container, const typename Container::iterator begin
     return binaryInsert(container, begin + (size / 2) * elementSize, end, elementSize, element);    
 }
 
-template<typename Iterator>
-Iterator nextInstertEnd(const Iterator& it, uint32 elementSize);
-
-template<>
-inline std::vector<uint32>::iterator nextInstertEnd<std::vector<uint32>::iterator>(const std::vector<uint32>::iterator& it, uint32 elementSize)
+template<typename Container, typename Iterator>
+void mergeInsertSort(Container& container, Iterator begin, Iterator end)
 {
-    return it + elementSize * 2;
+    uint32 size = std::distance(begin, end);
+
+    if (size <= 1)
+        return;
+    if (size == 2)
+    {
+        if (*begin > *end)
+            std::iter_swap(begin, end);
+        return;
+    }
+    
+    Container straggler;
+
+    if (size % 2 != 0)
+    {
+        straggler = Container(end - 1, end);
+        container.erase((end - 1).head, end.head + end.len);
+        --end;
+    }
+
+    for (Iterator it = begin; it != end; std::advance(it, 2))
+    {
+        if (*it < *(it + 1))
+            std::iter_swap(begin, it + 1);
+    }
 }
 
-template<>
-inline std::list<uint32>::iterator nextInstertEnd<std::list<uint32>::iterator>(const std::list<uint32>::iterator& it, uint32 elementSize)
-{
-    return it + elementSize;
-}
 
+#if 0
 template<typename Container>
 void mergeInsertSort(Container& container, uint32 elementSize = 1)
 {
@@ -132,17 +117,33 @@ void mergeInsertSort(Container& container, uint32 elementSize = 1)
         pending.insert(pending.end(), it + elementSize, it + elementSize * 2);
         it = container.erase(it + elementSize, it + elementSize * 2);
     }
-
     pending.insert(pending.end(), straggler.begin(), straggler.end());
 
-    container.insert(container.begin(), pending.begin(), pending.begin() + elementSize);
-
-    Iterator instertEnd = container.begin() + elementSize * 2;
-    for (Iterator it = pending.begin() + elementSize; it != pending.end(); it += elementSize)
+    Iterator insertEnd = container.begin();
+    for (uint32 i = 3; ; i++)
     {
-        binaryInsert(container, container.begin(), instertEnd, elementSize, it);
-        instertEnd = nextInstertEnd(instertEnd, elementSize);
+        uint32 dist = jacob(i) - jacob(i - 1);
+        if (dist >= pending.size())
+            break;
+        Iterator inserted = pending.begin() + elementSize * dist;
+        while (true)
+        {
+            binaryInsert(container, container.begin(), insertEnd, elementSize, inserted);
+            bool shouldBreak = inserted == pending.begin();
+            pending.erase(inserted, inserted + elementSize);
+            if (shouldBreak)
+                break;
+            inserted -= elementSize;
+            insertEnd += elementSize;
+        }
+    }
+    while (pending.empty() == false)
+    {
+        binaryInsert(container, container.begin(), insertEnd, elementSize, pending.begin());
+        pending.erase(pending.begin(), pending.begin() + elementSize);
+        insertEnd += elementSize;
     }
 }
+#endif
 
 #endif // FJMI_HPP

@@ -3,20 +3,35 @@
 /*                                                        :::      ::::::::   */
 /*   PmergeMe.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: tchoquet <tchoquet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 13:32:44 by tchoquet          #+#    #+#             */
-/*   Updated: 2024/04/29 20:10:43 by tchoquet         ###   ########.fr       */
+/*   Updated: 2024/11/29 18:23:46 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "PmergeMe.hpp"
 
 #include <iostream>
-#include <exception>
 #include <ctime>
+#include <cassert>
 
 #include "FJMI.hpp"
+#include "IteratorGroup.hpp"
+
+template<typename Container>
+bool is_sorted(const Container& container)
+{
+    for (typename Container::const_iterator it = container.begin(); it != container.end(); ++it)
+    {
+        typename Container::const_iterator next = it;
+        next++;
+
+        if (next != container.end() && *next < *it)
+            return false;
+    }
+    return true;
+}
 
 PmergeMe::PmergeMe()
 {
@@ -43,10 +58,10 @@ void PmergeMe::print(std::ostream& os) const
     std::vector<unsigned int>::const_iterator vecIt = m_vector.begin();
     std::list<unsigned int>::const_iterator lstIt = m_list.begin();
 
-    for (; vecIt != m_vector.end() && lstIt != m_list.end(); ++vecIt, ++lstIt)
+    assert(m_vector.size() == m_list.size());
+    for (; vecIt != m_vector.end(); ++vecIt, ++lstIt)
     {
-        if (vecIt == m_vector.end() || lstIt == m_list.end() || *vecIt != *lstIt)
-            throw std::runtime_error("Intenal container's datas are not identical");
+        assert(*vecIt == *lstIt);
         os << *vecIt << " ";
     }
 }
@@ -56,18 +71,19 @@ void PmergeMe::sort(float& vectorTime, float& listTime)
     clock_t start;
     
     start = clock();
-    mergeInsertSort(m_vector);
+    mergeInsertSort(m_vector, makeIteratorGroup(m_vector.begin(), 1), makeIteratorGroup(m_vector.end(), 1));
     vectorTime = (double)(clock() - start) / CLOCKS_PER_SEC * 1000000;
+    assert(is_sorted(m_vector));
 
     start = clock();
-    mergeInsertSort(m_list);
+    mergeInsertSort(m_list, makeIteratorGroup(m_list.begin(), 1), makeIteratorGroup(m_list.end(), 1));
     listTime = (double)(clock() - start) / CLOCKS_PER_SEC * 1000000;
+    assert(is_sorted(m_list));
 }
 
 unsigned long PmergeMe::size() const
 {
-    if (m_vector.size() != m_list.size())
-        throw std::runtime_error("Intenal container's datas are not identical");
+    assert(m_vector.size() == m_list.size());
     return m_vector.size();
 }
 
