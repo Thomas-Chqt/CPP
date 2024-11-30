@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 12:24:42 by tchoquet          #+#    #+#             */
-/*   Updated: 2024/11/30 17:20:11 by tchoquet         ###   ########.fr       */
+/*   Updated: 2024/11/30 18:12:28 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,38 +29,17 @@ inline uint32 jacob(uint32 n)
     return jacob(n - 1) + 2 * jacob(n - 2);
 }
 
-#if 0
-template<typename Container>
-void binaryInsert(Container& container, const typename Container::iterator begin, const typename Container::iterator end, uint32 elementSize, const typename Container::iterator element)
-{
-    typename Container::size_type size = std::distance(begin, end) / elementSize;
-    if (size <= 1)
-    {
-        if (size == 0 || *element <= *begin)
-            container.insert(begin, element, element + elementSize);
-        else
-            container.insert(end, element, element + elementSize);
-        return;
-    }
-
-    if (*element < *(begin + (size / 2) * elementSize))
-        return binaryInsert(container, begin, end - (size / 2) * elementSize, elementSize, element);
-
-    return binaryInsert(container, begin + (size / 2) * elementSize, end, elementSize, element);
-}
-#endif
-
 template<typename Container>
 void binaryInsert(Container& container, IteratorGroup<typename Container::iterator> insertEnd, IteratorGroup<typename Container::iterator> inserted)
 {
     typedef typename Container::difference_type ContainerSize;
     assert(insertEnd.len == inserted.len);
 
-    IteratorGroup<typename Container::iterator> containerBegin(container.begin(), inserted.len);
+    IteratorGroup<typename Container::iterator> containerBegin = begin(container, inserted.len);
 
     ContainerSize l = 0;
     ContainerSize h = std::distance(containerBegin, insertEnd);
-    while (l <= h)
+    while (l < h)
     {
         ContainerSize m = (l + h) / 2;
         if (*(containerBegin + m) < *inserted)
@@ -74,57 +53,57 @@ void binaryInsert(Container& container, IteratorGroup<typename Container::iterat
 }
 
 template<typename Container>
-void mergeInsertSort(Container& container, IteratorGroup<typename Container::iterator> begin, IteratorGroup<typename Container::iterator> end)
+void mergeInsertSort(Container& container, uint32 len = 1)
 {
     typedef IteratorGroup<typename Container::iterator> Iterator;
-    typedef typename Container::difference_type ContainerSize;
 
-    assert(begin.len == end.len);
-    uint32 itLen = begin.len;
-
-    ContainerSize size = std::distance(begin, end);
+    size_t size = container.size() / len;
 
     if (size <= 1)
         return;
     if (size == 2)
     {
-        if (*begin > *end)
-            std::iter_swap(begin, end);
+        if (*begin(container, len) > *end(container, len))
+            iter_swap(begin(container, len), end(container, len));
         return;
     }
 
     Container straggler;
     if (size % 2 != 0)
-        --end;
-
-    for (Iterator it = begin; it != end; std::advance(it, 2))
     {
-        if (*it < *(it + 1))
-            iter_swap(it, it + 1);
+        insert(straggler, straggler.end(), end(container, len) - 1);
+        erase(container, end(container, len) - 1);
     }
 
-    mergeInsertSort(container, makeIteratorGroup(begin, 2), makeIteratorGroup(end, 2));
+    // for (Iterator it = begin(container, len); it != end(container, len); it += 2)
+    // {
+    //     if (*it < *(it + 1))
+    //         iter_swap(it, it + 1);
+    // }
+
+    // mergeInsertSort(container, len * 2);
 
     Container main;
     Container pending;
 
-    for (Iterator it = begin; it != end;)
+    for (Iterator it = begin(container, len); it != end(container, len);)
     {
         insert(main, main.end(), it++);
         insert(pending, pending.end(), it++);
     }
-    if (size % 2 != 0)
-        insert(pending, pending.end(), end);
+    pending.insert(pending.end(), straggler.begin(), straggler.end());
 
-    for (uint32 i = 3; ; i++)
+    insert(main, main.begin(), begin(pending, len));
+    erase(pending, begin(pending, len));
+    for (uint32 i = 4; ; i++)
     {
-        uint32 dist = jacob(i) - jacob(i - 1);
-        if (dist >= pending.size())
+        uint32 jacobDiff = jacob(i) - jacob(i - 1);
+        if (jacobDiff >= pending.size())
             break;
-        Iterator insert = makeIteratorGroup(pending.begin(), itLen) + dist;
+        Iterator insert = begin(pending, len) + jacobDiff - 1;
         while (true)
         {
-            Iterator insertEnd = makeIteratorGroup(main.begin(), itLen) + dist;
+            Iterator insertEnd = begin(main, len) + jacob(i) - 1;
             binaryInsert(main, insertEnd, insert);
             insert = erase(pending, insert);
             if (insert.head == pending.begin())
@@ -132,80 +111,13 @@ void mergeInsertSort(Container& container, IteratorGroup<typename Container::ite
             --insert;
         }
     }
-    while (pending.empty() == false)
-    {
-        binaryInsert(main, makeIteratorGroup(main.end(), itLen), makeIteratorGroup(pending.begin(), itLen));
-        erase(pending, makeIteratorGroup(pending.begin(), itLen));
-    }
+    // while (pending.empty() == false)
+    // {
+    //     binaryInsert(main, makeIteratorGroup(main.end(), itLen), makeIteratorGroup(pending.begin(), itLen));
+    //     erase(pending, makeIteratorGroup(pending.begin(), itLen));
+    // }
 
     container = main;
 }
-
-#if 0
-template<typename Container>
-void mergeInsertSort(Container& container, uint32 elementSize = 1)
-{
-    typedef typename Container::iterator Iterator;
-
-    Container straggler;
-
-    if ((container.size() / elementSize) <= 1 || ((container.size() / elementSize) == 2 && container.front() < *(container.begin() + elementSize)))
-        return;
-
-    if ((container.size() / elementSize) == 2)
-    {
-        swap_iterator_range(container.begin(), container.begin() + elementSize, elementSize);
-        return;
-    }
-
-    if ((container.size() / elementSize) % 2 != 0)
-    {
-        straggler = Container(container.end() - elementSize, container.end());
-        container.erase(container.end() - elementSize, container.end());
-    }
-
-    for (Iterator it = container.begin(); it != container.end(); it += elementSize * 2)
-    {
-        if (*it < *(it + elementSize))
-            swap_iterator_range(it, it + elementSize, elementSize);
-    }
-
-    mergeInsertSort(container, elementSize * 2);
-
-    Container pending;
-
-    for (Iterator it = container.begin(); it != container.end();)
-    {
-        pending.insert(pending.end(), it + elementSize, it + elementSize * 2);
-        it = container.erase(it + elementSize, it + elementSize * 2);
-    }
-    pending.insert(pending.end(), straggler.begin(), straggler.end());
-
-    Iterator insertEnd = container.begin();
-    for (uint32 i = 3; ; i++)
-    {
-        uint32 dist = jacob(i) - jacob(i - 1);
-        if (dist >= pending.size())
-            break;
-        Iterator inserted = pending.begin() + elementSize * dist;
-        while (true)
-        {
-            binaryInsert(container, container.begin(), insertEnd, elementSize, inserted);
-            bool shouldBreak = inserted == pending.begin();
-            pending.erase(inserted, inserted + elementSize);
-            if (shouldBreak)
-                break;
-            inserted -= elementSize;
-            insertEnd += elementSize;
-        }
-    }
-    while (pending.empty() == false)
-    {
-        binaryInsert(container, container.begin(), insertEnd, elementSize, pending.begin());
-        pending.erase(pending.begin(), pending.begin() + elementSize);
-        insertEnd += elementSize;
-    }
-}
-#endif
 
 #endif // FJMI_HPP

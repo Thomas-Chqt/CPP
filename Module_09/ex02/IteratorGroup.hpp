@@ -119,4 +119,16 @@ void insert(Container& container, typename Container::iterator pos, const Iterat
     container.insert(pos, insertBegin, insertEnd);
 }
 
+template<typename Container>
+IteratorGroup<typename Container::iterator> begin(Container& container, uint32 len)
+{
+    return makeIteratorGroup(container.begin(), len);
+}
+
+template<typename Container>
+IteratorGroup<typename Container::iterator> end(Container& container, uint32 len)
+{
+    return makeIteratorGroup(container.end(), len);
+}
+
 #endif // ITERATORGROUP_HPP

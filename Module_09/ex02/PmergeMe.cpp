@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 13:32:44 by tchoquet          #+#    #+#             */
-/*   Updated: 2024/11/30 16:56:24 by tchoquet         ###   ########.fr       */
+/*   Updated: 2024/11/30 17:37:53 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,12 +71,12 @@ void PmergeMe::sort(float& vectorTime, float& listTime)
     clock_t start;
 
     start = clock();
-    mergeInsertSort(m_vector, makeIteratorGroup(m_vector.begin(), 1), makeIteratorGroup(m_vector.end(), 1));
+    mergeInsertSort(m_vector);
     vectorTime = (double)(clock() - start) / CLOCKS_PER_SEC * 1000000;
     assert(is_sorted(m_vector));
 
     start = clock();
-    mergeInsertSort(m_list, makeIteratorGroup(m_list.begin(), 1), makeIteratorGroup(m_list.end(), 1));
+    mergeInsertSort(m_list);
     listTime = (double)(clock() - start) / CLOCKS_PER_SEC * 1000000;
     assert(is_sorted(m_list));
 }
