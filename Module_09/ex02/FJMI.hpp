@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 12:24:42 by tchoquet          #+#    #+#             */
-/*   Updated: 2024/11/29 18:42:06 by tchoquet         ###   ########.fr       */
+/*   Updated: 2024/11/30 17:20:11 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,38 @@ void binaryInsert(Container& container, const typename Container::iterator begin
 #endif
 
 template<typename Container>
+void binaryInsert(Container& container, IteratorGroup<typename Container::iterator> insertEnd, IteratorGroup<typename Container::iterator> inserted)
+{
+    typedef typename Container::difference_type ContainerSize;
+    assert(insertEnd.len == inserted.len);
+
+    IteratorGroup<typename Container::iterator> containerBegin(container.begin(), inserted.len);
+
+    ContainerSize l = 0;
+    ContainerSize h = std::distance(containerBegin, insertEnd);
+    while (l <= h)
+    {
+        ContainerSize m = (l + h) / 2;
+        if (*(containerBegin + m) < *inserted)
+            l = m + 1;
+        if (*(containerBegin + m) > *inserted)
+            h = m - 1;
+        else
+            insert(container, (containerBegin + m).head, inserted);
+    }
+    insert(container, (containerBegin + l).head, inserted);
+}
+
+template<typename Container>
 void mergeInsertSort(Container& container, IteratorGroup<typename Container::iterator> begin, IteratorGroup<typename Container::iterator> end)
 {
     typedef IteratorGroup<typename Container::iterator> Iterator;
+    typedef typename Container::difference_type ContainerSize;
 
-    typename Container::difference_type size = std::distance(begin, end);
+    assert(begin.len == end.len);
+    uint32 itLen = begin.len;
+
+    ContainerSize size = std::distance(begin, end);
 
     if (size <= 1)
         return;
@@ -66,16 +93,52 @@ void mergeInsertSort(Container& container, IteratorGroup<typename Container::ite
         return;
     }
 
+    Container straggler;
     if (size % 2 != 0)
         --end;
 
     for (Iterator it = begin; it != end; std::advance(it, 2))
     {
         if (*it < *(it + 1))
-            std::iter_swap(begin, it + 1);
+            iter_swap(it, it + 1);
     }
 
-    mergeInsertSort(container, makeIteratorGroup(begin, 2), makeIteratorGroup(begin, 2));
+    mergeInsertSort(container, makeIteratorGroup(begin, 2), makeIteratorGroup(end, 2));
+
+    Container main;
+    Container pending;
+
+    for (Iterator it = begin; it != end;)
+    {
+        insert(main, main.end(), it++);
+        insert(pending, pending.end(), it++);
+    }
+    if (size % 2 != 0)
+        insert(pending, pending.end(), end);
+
+    for (uint32 i = 3; ; i++)
+    {
+        uint32 dist = jacob(i) - jacob(i - 1);
+        if (dist >= pending.size())
+            break;
+        Iterator insert = makeIteratorGroup(pending.begin(), itLen) + dist;
+        while (true)
+        {
+            Iterator insertEnd = makeIteratorGroup(main.begin(), itLen) + dist;
+            binaryInsert(main, insertEnd, insert);
+            insert = erase(pending, insert);
+            if (insert.head == pending.begin())
+                break;
+            --insert;
+        }
+    }
+    while (pending.empty() == false)
+    {
+        binaryInsert(main, makeIteratorGroup(main.end(), itLen), makeIteratorGroup(pending.begin(), itLen));
+        erase(pending, makeIteratorGroup(pending.begin(), itLen));
+    }
+
+    container = main;
 }
 
 #if 0
