@@ -27,7 +27,7 @@ public:
     void print(std::ostream& os) const;
     void sort(float& vectorTime, float& listTime);
     unsigned long size() const;
-    
+
     ~PmergeMe();
 
 private:

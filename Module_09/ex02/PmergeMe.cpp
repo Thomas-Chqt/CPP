@@ -69,14 +69,14 @@ void PmergeMe::print(std::ostream& os) const
 void PmergeMe::sort(float& vectorTime, float& listTime)
 {
     clock_t start;
-    
+
     start = clock();
-    mergeInsertSort(m_vector, makeIteratorGroup(m_vector.begin(), 1), makeIteratorGroup(m_vector.end(), 1));
+    mergeInsertSort(m_vector, makeIteratorGroup(m_vector.begin()), makeIteratorGroup(m_vector.end()));
     vectorTime = (double)(clock() - start) / CLOCKS_PER_SEC * 1000000;
     assert(is_sorted(m_vector));
 
     start = clock();
-    mergeInsertSort(m_list, makeIteratorGroup(m_list.begin(), 1), makeIteratorGroup(m_list.end(), 1));
+    mergeInsertSort(m_list, makeIteratorGroup(m_list.begin()), makeIteratorGroup(m_list.end()));
     listTime = (double)(clock() - start) / CLOCKS_PER_SEC * 1000000;
     assert(is_sorted(m_list));
 }

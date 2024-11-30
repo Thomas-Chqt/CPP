@@ -29,9 +29,10 @@ inline uint32 jacob(uint32 n)
     return jacob(n - 1) + 2 * jacob(n - 2);
 }
 
+#if 0
 template<typename Container>
 void binaryInsert(Container& container, const typename Container::iterator begin, const typename Container::iterator end, uint32 elementSize, const typename Container::iterator element)
-{        
+{
     typename Container::size_type size = std::distance(begin, end) / elementSize;
     if (size <= 1)
     {
@@ -41,17 +42,20 @@ void binaryInsert(Container& container, const typename Container::iterator begin
             container.insert(end, element, element + elementSize);
         return;
     }
-    
+
     if (*element < *(begin + (size / 2) * elementSize))
         return binaryInsert(container, begin, end - (size / 2) * elementSize, elementSize, element);
 
-    return binaryInsert(container, begin + (size / 2) * elementSize, end, elementSize, element);    
+    return binaryInsert(container, begin + (size / 2) * elementSize, end, elementSize, element);
 }
+#endif
 
-template<typename Container, typename Iterator>
-void mergeInsertSort(Container& container, Iterator begin, Iterator end)
+template<typename Container>
+void mergeInsertSort(Container& container, IteratorGroup<typename Container::iterator> begin, IteratorGroup<typename Container::iterator> end)
 {
-    uint32 size = std::distance(begin, end);
+    typedef IteratorGroup<typename Container::iterator> Iterator;
+
+    typename Container::difference_type size = std::distance(begin, end);
 
     if (size <= 1)
         return;
@@ -61,23 +65,18 @@ void mergeInsertSort(Container& container, Iterator begin, Iterator end)
             std::iter_swap(begin, end);
         return;
     }
-    
-    Container straggler;
 
     if (size % 2 != 0)
-    {
-        straggler = Container(end - 1, end);
-        container.erase((end - 1).head, end.head + end.len);
         --end;
-    }
 
     for (Iterator it = begin; it != end; std::advance(it, 2))
     {
         if (*it < *(it + 1))
             std::iter_swap(begin, it + 1);
     }
-}
 
+    mergeInsertSort(container, makeIteratorGroup(begin, 2), makeIteratorGroup(begin, 2));
+}
 
 #if 0
 template<typename Container>
@@ -91,7 +90,7 @@ void mergeInsertSort(Container& container, uint32 elementSize = 1)
         return;
 
     if ((container.size() / elementSize) == 2)
-    { 
+    {
         swap_iterator_range(container.begin(), container.begin() + elementSize, elementSize);
         return;
     }
@@ -107,7 +106,7 @@ void mergeInsertSort(Container& container, uint32 elementSize = 1)
         if (*it < *(it + elementSize))
             swap_iterator_range(it, it + elementSize, elementSize);
     }
-    
+
     mergeInsertSort(container, elementSize * 2);
 
     Container pending;
