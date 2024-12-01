@@ -2,3 +2,5 @@
 **/*.o
 **/*.a
 **/.build*
+**/build/
+**/compile_commands.json

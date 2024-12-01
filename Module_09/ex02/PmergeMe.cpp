@@ -17,7 +17,6 @@
 #include <cassert>
 
 #include "FJMI.hpp"
-#include "IteratorGroup.hpp"
 
 template<typename Container>
 bool is_sorted(const Container& container)

@@ -14,7 +14,6 @@
 # define FJMI_HPP
 
 #include <iterator>
-#include <algorithm>
 
 #include "IteratorGroup.hpp"
 
@@ -39,15 +38,18 @@ void binaryInsert(Container& container, IteratorGroup<typename Container::iterat
 
     ContainerSize l = 0;
     ContainerSize h = std::distance(containerBegin, insertEnd);
-    while (l < h)
+    while (l <= h)
     {
         ContainerSize m = (l + h) / 2;
         if (*(containerBegin + m) < *inserted)
             l = m + 1;
-        if (*(containerBegin + m) > *inserted)
+        else if (*(containerBegin + m) > *inserted)
             h = m - 1;
         else
+        {
             insert(container, (containerBegin + m).head, inserted);
+            return;
+        }
     }
     insert(container, (containerBegin + l).head, inserted);
 }
@@ -63,25 +65,25 @@ void mergeInsertSort(Container& container, uint32 len = 1)
         return;
     if (size == 2)
     {
-        if (*begin(container, len) > *end(container, len))
-            iter_swap(begin(container, len), end(container, len));
+        if (*begin(container, len) > *--end(container, len))
+            iter_swap(begin(container, len), --end(container, len));
         return;
     }
 
     Container straggler;
     if (size % 2 != 0)
     {
-        insert(straggler, straggler.end(), end(container, len) - 1);
+        insert(straggler, straggler.end(), --end(container, len));
         erase(container, end(container, len) - 1);
     }
 
-    // for (Iterator it = begin(container, len); it != end(container, len); it += 2)
-    // {
-    //     if (*it < *(it + 1))
-    //         iter_swap(it, it + 1);
-    // }
+    for (Iterator it = begin(container, len); it != end(container, len); it += 2)
+    {
+        if (*it < *(it + 1))
+            iter_swap(it, it + 1);
+    }
 
-    // mergeInsertSort(container, len * 2);
+    mergeInsertSort(container, len * 2);
 
     Container main;
     Container pending;
@@ -91,31 +93,40 @@ void mergeInsertSort(Container& container, uint32 len = 1)
         insert(main, main.end(), it++);
         insert(pending, pending.end(), it++);
     }
-    pending.insert(pending.end(), straggler.begin(), straggler.end());
+
+    uint32 insertRange = 0;
+    uint32 insertedRange = 1;
 
     insert(main, main.begin(), begin(pending, len));
     erase(pending, begin(pending, len));
-    for (uint32 i = 4; ; i++)
+
+    for (uint32 i = 4; pending.empty() == false; i++)
     {
         uint32 jacobDiff = jacob(i) - jacob(i - 1);
-        if (jacobDiff >= pending.size())
-            break;
-        Iterator insert = begin(pending, len) + jacobDiff - 1;
+        insertRange += insertedRange + jacobDiff;
+        insertedRange = jacobDiff;
+
+        if (insertRange > (main.size() / len))
+            insertRange = (main.size() / len);
+
+        Iterator inserted;
+        if (jacobDiff >= (pending.size() / len))
+            inserted = end(pending, len) - 1;
+        else
+            inserted = begin(pending, len) + (insertedRange - 1);
+
         while (true)
         {
-            Iterator insertEnd = begin(main, len) + jacob(i) - 1;
-            binaryInsert(main, insertEnd, insert);
-            insert = erase(pending, insert);
-            if (insert.head == pending.begin())
+            Iterator insertEnd = begin(main, len) + (insertRange - 1);
+            binaryInsert(main, insertEnd, inserted);
+            inserted = erase(pending, inserted);
+            if (inserted.head == pending.begin())
                 break;
-            --insert;
+            --inserted;
         }
     }
-    // while (pending.empty() == false)
-    // {
-    //     binaryInsert(main, makeIteratorGroup(main.end(), itLen), makeIteratorGroup(pending.begin(), itLen));
-    //     erase(pending, makeIteratorGroup(pending.begin(), itLen));
-    // }
+    if (straggler.empty() == false)
+        binaryInsert(main, --end(main, len), begin(straggler, len));
 
     container = main;
 }

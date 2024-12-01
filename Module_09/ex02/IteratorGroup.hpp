@@ -101,9 +101,7 @@ template<typename Container>
 IteratorGroup<typename Container::iterator> erase(Container& container, const IteratorGroup<typename Container::iterator>& it)
 {
     typename Container::iterator eraseBegin = it.head;
-    typename Container::iterator eraseEnd = it.head;
-    for (uint32 i = 0; i < it.len; i++)
-        ++eraseEnd;
+    typename Container::iterator eraseEnd = (it + 1).head;
 
     typename Container::iterator eraseRet = container.erase(eraseBegin, eraseEnd);
     return IteratorGroup<typename Container::iterator>(eraseRet, it.len);

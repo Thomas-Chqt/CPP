@@ -1,6 +1,9 @@
 {
 	"files.exclude": {
+        "compile_commands.json" : true,
         "PmergeMe" : true,
         "PmergeMe_debug" : true
-    }
+    },
+    "clangd.arguments": [
+    ]
 }
